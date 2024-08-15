@@ -8,7 +8,8 @@ import {
     Patch,
     Post,
     ParseIntPipe,
-    UseGuards
+    UseGuards,
+    Res
 } from '@nestjs/common';
 import { ValidationPipe } from '@nestjs/common';
 import { Ticket } from '@prisma/client';
@@ -32,8 +33,12 @@ export class TicketController {
 
     /* Rating */
     @Get('/rating')
-    async submitRating(@Query('Ticket', ParseIntPipe) Ticket: number, @Query('Rating', ParseIntPipe) Rating: number) {
-        return this.ticketService.rating(Ticket,Rating)
+    async submitRating(
+        @Query('Ticket', ParseIntPipe) Ticket: number,
+        @Query('Rating', ParseIntPipe) Rating: number,
+        @Res() res: Response
+    ) {
+        return this.ticketService.rating(Ticket, Rating,res)
     }
 
     /* GET /ticket/:ticket */
