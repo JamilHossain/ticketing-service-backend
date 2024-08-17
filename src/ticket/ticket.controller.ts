@@ -31,6 +31,15 @@ export class TicketController {
         return this.ticketService.findAll();
     }
 
+    /* Get /ticket/filter */
+    @Get('/filter')
+    @UseGuards(JwtAuthGuard)
+    async findAllByDateRange(
+        @Query('from') from: string,
+        @Query('to') to: string): Promise<Ticket[]> {
+        return this.ticketService.findAllByDateRange(from, to);
+    }
+
     /* Rating */
     @Get('/rating')
     async submitRating(
@@ -38,7 +47,7 @@ export class TicketController {
         @Query('Rating', ParseIntPipe) Rating: number,
         @Res() res: Response
     ) {
-        return this.ticketService.rating(Ticket, Rating,res)
+        return this.ticketService.rating(Ticket, Rating, res)
     }
 
     /* GET /ticket/:ticket */

@@ -81,6 +81,20 @@ export class TicketService {
         return await this.db.ticket.findMany()
     }
 
+    /* Get /ticket/filter */
+    async findAllByDateRange(from: string, to: string): Promise<Ticket[]> {
+        console.log("from", from);
+        console.log("to", to)
+        return await this.db.ticket.findMany({
+            where: {
+                updatedAt: {
+                    gte: new Date(from), // Ensure it's in the correct format
+                    lte: new Date(to),
+                },
+            },
+        });
+    }
+
     /* GET /ticket/:ticket */
     async findOne(ticket: number): Promise<Ticket | null> {
         const data = await this.db.ticket.findUnique({

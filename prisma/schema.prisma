@@ -28,4 +28,6 @@ model User {
 model Ticket {
   Ticket Int @id
   Rating Int
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
 }
