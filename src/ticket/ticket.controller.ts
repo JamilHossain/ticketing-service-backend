@@ -9,7 +9,6 @@ import {
     Post,
     ParseIntPipe,
     UseGuards,
-    Res
 } from '@nestjs/common';
 import { ValidationPipe } from '@nestjs/common';
 import { Ticket } from '@prisma/client';
@@ -44,10 +43,9 @@ export class TicketController {
     @Get('/rating')
     async submitRating(
         @Query('Ticket', ParseIntPipe) Ticket: number,
-        @Query('Rating', ParseIntPipe) Rating: number,
-        @Res() res: Response
+        @Query('Rating', ParseIntPipe) Rating: number
     ) {
-        return this.ticketService.rating(Ticket, Rating, res)
+        return this.ticketService.rating(Ticket, Rating)
     }
 
     /* GET /ticket/:ticket */
