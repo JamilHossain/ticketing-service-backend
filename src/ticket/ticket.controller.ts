@@ -45,6 +45,7 @@ export class TicketController {
         @Query('Ticket', ParseIntPipe) Ticket: number,
         @Query('Rating', ParseIntPipe) Rating: number
     ) {
+        console.log(Ticket,Rating)
         return this.ticketService.rating(Ticket, Rating)
     }
 
