@@ -50,8 +50,6 @@ export class TicketService {
 
   /* Get /ticket/filter */
   async findAllByDateRange(from: string, to: string): Promise<Ticket[]> {
-    console.log('from', from);
-    console.log('to', to);
     return await this.db.ticket.findMany({
       where: {
         updatedAt: {

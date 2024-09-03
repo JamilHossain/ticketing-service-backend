@@ -36,7 +36,30 @@ export class TicketController {
     async findAllByDateRange(
         @Query('from') from: string,
         @Query('to') to: string): Promise<Ticket[]> {
-        return this.ticketService.findAllByDateRange(from, to);
+
+        const fromDate = new Date(from);
+        const toDate = new Date(to);
+
+        if (fromDate.getTime() === toDate.getTime()) {
+            fromDate.setHours(fromDate.getHours() + 6);
+            toDate.setHours(toDate.getHours() + 29);
+            toDate.setMinutes(toDate.getMinutes() + 59);
+            toDate.setSeconds(toDate.getSeconds() + 59);
+
+        } else {
+            fromDate.setHours(fromDate.getHours() + 6);
+            toDate.setHours(toDate.getHours() + 29);
+            toDate.setMinutes(toDate.getMinutes() + 59);
+            toDate.setSeconds(toDate.getSeconds() + 59);
+        }
+
+        const updatedFromISOString = fromDate.toISOString();
+        const updatedToISOString = toDate.toISOString();
+
+        console.log(updatedFromISOString)
+        console.log(updatedToISOString)
+
+        return this.ticketService.findAllByDateRange(updatedFromISOString, updatedToISOString);
     }
 
     /* Rating */
@@ -45,7 +68,7 @@ export class TicketController {
         @Query('Ticket', ParseIntPipe) Ticket: number,
         @Query('Rating', ParseIntPipe) Rating: number
     ) {
-        console.log(Ticket,Rating)
+        console.log(Ticket, Rating)
         return this.ticketService.rating(Ticket, Rating)
     }
 
