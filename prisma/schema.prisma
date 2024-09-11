@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -28,6 +28,7 @@ model User {
 model Ticket {
   Ticket Int @id
   Rating Int
+  TicketUrl String?
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
 }

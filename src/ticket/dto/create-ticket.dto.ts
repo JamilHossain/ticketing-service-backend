@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateTicketDTO {
     @IsNumber()
@@ -8,4 +8,7 @@ export class CreateTicketDTO {
     @IsNumber()
     @IsNotEmpty()
     Rating: number;
+
+    @IsOptional()
+    TicketUrl:string;
 }

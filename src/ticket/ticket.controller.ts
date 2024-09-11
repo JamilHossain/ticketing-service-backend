@@ -66,10 +66,10 @@ export class TicketController {
     @Get('/rating')
     async submitRating(
         @Query('Ticket', ParseIntPipe) Ticket: number,
-        @Query('Rating', ParseIntPipe) Rating: number
+        @Query('Rating', ParseIntPipe) Rating: number,
+        @Query('TicketUrl') TicketUrl: string
     ) {
-        console.log(Ticket, Rating)
-        return this.ticketService.rating(Ticket, Rating)
+        return this.ticketService.rating(Ticket, Rating, TicketUrl)
     }
 
     /* GET /ticket/:ticket */

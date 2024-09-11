@@ -8,26 +8,27 @@ import { UpdateTicketDTO } from './dto/update-ticket.dto';
 
 @Injectable()
 export class TicketService {
-  constructor(private db: PrismaService) {}
+  constructor(private db: PrismaService) { }
 
   /* Rating */
-  async rating(Ticket: number, Rating: number): Promise<Ticket> {
+  async rating(Ticket: number, Rating: number, TicketUrl: string): Promise<Ticket> {
     const data = await this.db.ticket.findUnique({
       where: {
         Ticket,
       },
     });
 
-    console.log(data);
-
     if (!data) {
       return await this.db.ticket.create({
         data: {
           Ticket,
           Rating,
+          TicketUrl
         },
       });
     }
+
+    console.log(Ticket, Rating, TicketUrl)
 
     return await this.db.ticket.update({
       where: {
@@ -35,6 +36,7 @@ export class TicketService {
       },
       data: {
         Rating,
+        TicketUrl
       },
     });
   }
@@ -91,6 +93,7 @@ export class TicketService {
       data: {
         Ticket: data.Ticket,
         Rating: data.Rating,
+        TicketUrl: data.TicketUrl
       },
     });
 
