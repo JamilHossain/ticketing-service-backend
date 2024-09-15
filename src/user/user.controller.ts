@@ -49,10 +49,10 @@ export class UserController {
     }
 
     /* DELETE /user/:id */
-    @Delete(':id')
+    @Delete()
     @UseGuards(JwtAuthGuard)
-    async delete(@Param('id', ParseIntPipe) id: number): Promise<User> {
-        return this.userService.delete(id);
+    async delete(@Body('ids') ids: number[]): Promise<{ count: number }> {
+        return this.userService.delete(ids);
     }
 }
 

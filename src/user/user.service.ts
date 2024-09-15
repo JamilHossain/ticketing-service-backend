@@ -88,20 +88,13 @@ export class UserService {
     }
 
     /* DELETE /user/:id */
-    async delete(id: number): Promise<User> {
-        const user = await this.db.user.findUnique({
-            where: {
-                id
-            }
-        })
+    async delete(ids: number[]): Promise<{ count: number }> {
 
-        if (!user) {
-            throw new NotFoundException("user Not Found!")
-        }
-
-        const res = await this.db.user.delete({
+        const res = await this.db.user.deleteMany({
             where: {
-                id
+                id: {
+                    in: ids,
+                }
             }
         })
 
